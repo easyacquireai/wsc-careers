@@ -1,44 +1,31 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
-import { ArrowLeft, ArrowRight, Briefcase, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, MapPin, X } from "lucide-react";
 import type { Job } from "@/data/jobs";
 
-declare global {
-  interface Window {
-    tf?: {
-      createPopup: (
-        id: string,
-        options?: { size?: number }
-      ) => { open: () => void };
-    };
-  }
-}
-
 export default function RolePageClient({ job }: { job: Job }) {
-  const handleApplyClick = () => {
-    if (window.tf) {
-      window.tf.createPopup("YFvvwYCM", { size: 80 }).open();
-    }
-  };
+  const [showModal, setShowModal] = useState(false);
 
-  const scrollToApply = () => {
+  const openModal = useCallback(() => {
+    setShowModal(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+
+  const scrollToApply = useCallback(() => {
     const el = document.getElementById("apply");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-wsc-bg">
-      {/* Typeform Embed SDK */}
-      <Script
-        src="https://embed.typeform.com/next/embed.js"
-        strategy="afterInteractive"
-      />
-
       {/* Sticky Header */}
       <header className="nav-glass fixed top-0 left-0 right-0 z-50 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -68,6 +55,7 @@ export default function RolePageClient({ job }: { job: Job }) {
 
           <button
             onClick={scrollToApply}
+            type="button"
             className="btn-hero inline-flex items-center gap-2 px-5 py-2 bg-white text-[#0B0014] font-semibold text-sm cursor-pointer"
           >
             Apply Now
@@ -153,7 +141,8 @@ export default function RolePageClient({ job }: { job: Job }) {
               team will be in touch with more information.
             </p>
             <button
-              onClick={handleApplyClick}
+              onClick={openModal}
+              type="button"
               className="btn-hero inline-flex items-center gap-2 mt-8 px-10 py-4 bg-white text-[#0B0014] font-semibold text-sm cursor-pointer"
             >
               Apply Now
@@ -190,6 +179,41 @@ export default function RolePageClient({ job }: { job: Job }) {
           </a>
         </div>
       </footer>
+
+      {/* Typeform Modal Overlay */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
+          onClick={closeModal}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
+          {/* Modal container */}
+          <div
+            className="relative w-[94vw] h-[90vh] max-w-3xl rounded-2xl overflow-hidden bg-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeModal}
+              type="button"
+              className="absolute top-3 right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
+              aria-label="Close application form"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Typeform iframe */}
+            <iframe
+              src="https://form.typeform.com/to/YFvvwYCM"
+              title="Apply Now"
+              className="w-full h-full border-0"
+              allow="camera; microphone; autoplay; encrypted-media;"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
