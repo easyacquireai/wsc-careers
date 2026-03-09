@@ -16,7 +16,7 @@ export async function generateMetadata({
   if (!job) return { title: "Role Not Found" };
   return {
     title: `${job.title} | We Scale Creators`,
-    description: job.description,
+    description: job.summary,
   };
 }
 
