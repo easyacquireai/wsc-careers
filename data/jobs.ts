@@ -4,6 +4,7 @@ export interface Job {
   type: string;
   location: string;
   department: string;
+  summary: string;
   description: string;
   whatYoullDo: string[];
   requirements: string[];
@@ -16,6 +17,8 @@ export const jobs: Job[] = [
     type: "Full-time",
     location: "Remote (US)",
     department: "Marketing",
+    summary:
+      "Own marketing strategy and performance across the entire WSC portfolio. Lead war rooms, drive growth, and report directly to co-founders.",
     description:
       "Own the overall marketing strategy, growth opportunities, and performance trajectory for every offer in the WSC portfolio. Reports directly to co-founders. Lead pod war room meetings, work hands-on with media buyers, copywriters, designers, and editors. Own all weekly client calls providing performance updates and strategic recommendations directly to creators.",
     whatYoullDo: [
@@ -46,6 +49,8 @@ export const jobs: Job[] = [
     type: "Full-time",
     location: "Remote (US)",
     department: "Creative",
+    summary:
+      "Write high-converting ad copy, VSLs, and funnel pages across 5–8 creator offers generating six and seven figures monthly.",
     description:
       "Own copy across a portfolio of 5-8 creator offers generating six and seven figures monthly. Work in pod-based team structure alongside designer, media buyer, video editors. Participate in war room meetings pitching ad concepts and collaborating on split-test strategies.",
     whatYoullDo: [
@@ -72,6 +77,8 @@ export const jobs: Job[] = [
     type: "Full-time",
     location: "Remote (US)",
     department: "Marketing",
+    summary:
+      "Scale paid media campaigns across Meta, LinkedIn, and YouTube — deploying $150K–$300K+ monthly ad spend per client.",
     description:
       "Manage and scale paid media campaigns across Meta (primary), LinkedIn, and YouTube deploying $150K-$300K+ monthly ad spend per client across 5-8 active offers. Follow Keep/Kill/Scale methodology.",
     whatYoullDo: [
@@ -102,6 +109,8 @@ export const jobs: Job[] = [
     type: "Full-time",
     location: "Remote",
     department: "Creative",
+    summary:
+      "Design scroll-stopping paid ads and high-converting funnel graphics for top creators. Your work gets tested in-market every week.",
     description:
       "Design scroll-stopping paid ads, high-performing funnel graphics, and brand-consistent visuals. Fast-paced high-output role in pod-based team structure. Work gets tested in-market every week with direct measurable results.",
     whatYoullDo: [

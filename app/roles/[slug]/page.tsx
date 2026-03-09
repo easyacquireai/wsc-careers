@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Briefcase, MapPin, Building2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, MapPin } from "lucide-react";
 import { jobs, getJobBySlug } from "@/data/jobs";
 import { notFound } from "next/navigation";
 
@@ -57,11 +57,11 @@ export default async function RolePage({
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 pt-28 pb-16">
+      <main className="max-w-3xl mx-auto px-6 pt-32 pb-20">
         {/* Back link */}
         <Link
           href="/#roles"
-          className="inline-flex items-center gap-2 text-sm text-wsc-text-secondary hover:text-white transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-sm text-wsc-text-secondary hover:text-white transition-colors duration-300 mb-12"
         >
           <ArrowLeft size={16} />
           All Open Roles
@@ -73,7 +73,7 @@ export default async function RolePage({
         </h1>
 
         {/* Meta */}
-        <div className="flex flex-wrap items-center gap-4 mt-4">
+        <div className="flex flex-wrap items-center gap-4 mt-5">
           <span className="flex items-center gap-1.5 text-sm text-wsc-text-secondary">
             <Briefcase size={14} />
             {job.type}
@@ -82,23 +82,22 @@ export default async function RolePage({
             <MapPin size={14} />
             {job.location}
           </span>
-          <span className="flex items-center gap-1.5 text-sm text-wsc-text-secondary">
-            <Building2 size={14} />
+          <span className="dept-badge">
             {job.department}
           </span>
         </div>
 
         {/* Description */}
-        <div className="mt-10">
+        <div className="mt-12">
           <p className="text-wsc-text-secondary leading-relaxed">{job.description}</p>
         </div>
 
         {/* What You'll Do */}
-        <div className="mt-12">
-          <h2 className="text-xl font-semibold text-white mb-6">
+        <div className="mt-14">
+          <h2 className="text-xl font-semibold text-white mb-7">
             What You&apos;ll Do
           </h2>
-          <ul className="space-y-4">
+          <ul className="space-y-5">
             {job.whatYoullDo.map((item, i) => (
               <li key={i} className="flex gap-3 text-sm leading-relaxed">
                 <span className="text-wsc-purple-light mt-0.5 shrink-0">
@@ -110,12 +109,15 @@ export default async function RolePage({
           </ul>
         </div>
 
+        {/* Gradient divider */}
+        <div className="section-divider my-14" />
+
         {/* Requirements */}
-        <div className="mt-12">
-          <h2 className="text-xl font-semibold text-white mb-6">
+        <div>
+          <h2 className="text-xl font-semibold text-white mb-7">
             Requirements
           </h2>
-          <ul className="space-y-4">
+          <ul className="space-y-5">
             {job.requirements.map((item, i) => (
               <li key={i} className="flex gap-3 text-sm leading-relaxed">
                 <span className="text-wsc-purple-light mt-0.5 shrink-0">
@@ -128,16 +130,16 @@ export default async function RolePage({
         </div>
 
         {/* Apply CTA */}
-        <div className="cta-gradient mt-16 rounded-2xl p-8 text-center">
+        <div className="cta-gradient mt-20 p-10 text-center">
           <h3 className="text-xl font-semibold text-white">
             Interested in this role?
           </h3>
-          <p className="mt-2 text-sm text-white/80">
+          <p className="mt-3 text-sm text-white/80">
             Send your resume and portfolio to get started.
           </p>
           <a
             href="mailto:careers@wescalecreators.com"
-            className="btn-hero inline-flex items-center gap-2 mt-6 px-8 py-3.5 rounded-full bg-white text-[#0B0014] font-semibold text-sm transition-all"
+            className="btn-hero inline-flex items-center gap-2 mt-7 px-8 py-3.5 bg-white text-[#0B0014] font-semibold text-sm"
           >
             Apply Now
             <ArrowRight size={16} />
@@ -145,10 +147,10 @@ export default async function RolePage({
         </div>
 
         {/* Back link bottom */}
-        <div className="mt-12 text-center">
+        <div className="mt-14 text-center">
           <Link
             href="/#roles"
-            className="inline-flex items-center gap-2 text-sm text-wsc-text-secondary hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-wsc-text-secondary hover:text-white transition-colors duration-300"
           >
             <ArrowLeft size={16} />
             Back to All Roles
@@ -158,7 +160,7 @@ export default async function RolePage({
 
       {/* Footer */}
       <footer className="border-t border-white/10 mt-16">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-wsc-text-secondary/60">
             &copy; 2026 We Scale Creators. All rights reserved.
           </p>

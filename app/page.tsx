@@ -39,10 +39,10 @@ export default function CareersPage() {
 
       <main>
         {/* Hero */}
-        <section className="hero-gradient relative pt-32 pb-28">
+        <section className="hero-gradient relative pt-36 pb-32">
           <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
             {/* We're Hiring Badge */}
-            <div className="inline-flex items-center gap-2 hiring-badge rounded-full px-4 py-2 mb-8 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 hiring-badge px-4 py-2 mb-8 animate-fade-in-up">
               <span className="w-2 h-2 rounded-full bg-wsc-green" />
               <span className="text-sm font-medium text-white/90">
                 We&apos;re Hiring
@@ -64,7 +64,7 @@ export default function CareersPage() {
 
             <a
               href="#roles"
-              className="btn-hero inline-flex items-center gap-2 mt-10 px-8 py-3.5 rounded-full bg-white text-[#0B0014] font-semibold text-sm transition-all"
+              className="btn-hero inline-flex items-center gap-2 mt-10 px-8 py-3.5 bg-white text-[#0B0014] font-semibold text-sm"
             >
               View Open Roles
               <ArrowRight size={16} />
@@ -74,7 +74,7 @@ export default function CareersPage() {
 
         {/* Stats */}
         <section className="border-y border-white/10">
-          <div className="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { value: "$3M+", label: "MONTHLY RUN RATE" },
               { value: "60M+", label: "COMBINED PARTNER FOLLOWERS" },
@@ -82,7 +82,7 @@ export default function CareersPage() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="glass-card rounded-2xl p-8 text-center"
+                className="stat-card p-10 text-center"
               >
                 <p className="text-4xl font-bold text-white">{stat.value}</p>
                 <p className="mt-3 text-xs font-medium text-wsc-text-secondary uppercase tracking-widest">
@@ -94,11 +94,11 @@ export default function CareersPage() {
         </section>
 
         {/* Why WSC */}
-        <section className="max-w-6xl mx-auto px-6 py-24">
+        <section className="max-w-6xl mx-auto px-6 py-28">
           <h2 className="text-3xl font-bold text-white text-center mb-16">
             Why We Scale Creators
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
                 icon: <DollarSign size={24} />,
@@ -123,10 +123,10 @@ export default function CareersPage() {
             ].map((card) => (
               <div
                 key={card.title}
-                className="glass-card rounded-2xl p-8 transition-all duration-300"
+                className="glass-card p-10"
               >
-                <div className="text-wsc-purple-light mb-4">{card.icon}</div>
-                <h3 className="text-lg font-semibold text-white mb-2">
+                <div className="text-wsc-purple-light mb-5">{card.icon}</div>
+                <h3 className="text-lg font-semibold text-white mb-3">
                   {card.title}
                 </h3>
                 <p className="text-sm text-wsc-text-secondary leading-relaxed">
@@ -137,42 +137,55 @@ export default function CareersPage() {
           </div>
         </section>
 
+        {/* Gradient divider */}
+        <div className="section-divider max-w-4xl mx-auto" />
+
         {/* Open Roles */}
-        <section id="roles" className="max-w-6xl mx-auto px-6 py-24">
+        <section id="roles" className="max-w-6xl mx-auto px-6 py-28">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-white">Open Roles</h2>
-            <p className="mt-3 text-wsc-text-secondary">
+            <p className="mt-4 text-wsc-text-secondary max-w-lg mx-auto">
               Join our team and help scale the biggest creators in the world.
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-5">
             {jobs.map((job) => (
               <Link
                 key={job.slug}
                 href={`/roles/${job.slug}`}
-                className="group block glass-card rounded-2xl p-6 transition-all duration-300"
+                className="group block role-card"
               >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-semibold text-white group-hover:text-wsc-purple-light transition-colors">
-                      {job.title}
-                    </h3>
-                    <div className="flex items-center gap-4 mt-2">
-                      <span className="flex items-center gap-1.5 text-sm text-wsc-text-secondary">
-                        <Briefcase size={14} />
+                <div className="flex items-start justify-between gap-6">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-3">
+                      <h3 className="text-lg font-semibold text-white group-hover:text-wsc-purple-light transition-colors duration-300">
+                        {job.title}
+                      </h3>
+                      <span className="dept-badge hidden sm:inline-block">
+                        {job.department}
+                      </span>
+                    </div>
+                    <p className="text-sm text-wsc-text-secondary leading-relaxed mb-4">
+                      {job.summary}
+                    </p>
+                    <div className="flex items-center gap-5">
+                      <span className="flex items-center gap-1.5 text-xs text-wsc-text-secondary/70">
+                        <Briefcase size={13} />
                         {job.type}
                       </span>
-                      <span className="flex items-center gap-1.5 text-sm text-wsc-text-secondary">
-                        <MapPin size={14} />
+                      <span className="flex items-center gap-1.5 text-xs text-wsc-text-secondary/70">
+                        <MapPin size={13} />
                         {job.location}
                       </span>
                     </div>
                   </div>
-                  <ArrowRight
-                    size={20}
-                    className="text-wsc-text-secondary group-hover:text-white group-hover:translate-x-1 transition-all"
-                  />
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 group-hover:bg-wsc-purple/20 group-hover:border-wsc-purple-light/30 transition-all duration-300 shrink-0 mt-1">
+                    <ArrowRight
+                      size={16}
+                      className="text-wsc-text-secondary group-hover:text-white transition-colors duration-300"
+                    />
+                  </div>
                 </div>
               </Link>
             ))}
@@ -180,8 +193,8 @@ export default function CareersPage() {
         </section>
 
         {/* CTA */}
-        <section className="mx-6 mb-12">
-          <div className="cta-gradient rounded-3xl max-w-6xl mx-auto px-6 py-24 text-center">
+        <section className="mx-6 mb-16">
+          <div className="cta-gradient max-w-6xl mx-auto px-6 py-24 text-center">
             <h2 className="text-3xl font-bold text-white">
               Ready to Scale With Us?
             </h2>
@@ -191,7 +204,7 @@ export default function CareersPage() {
             </p>
             <a
               href="#roles"
-              className="btn-hero inline-flex items-center gap-2 mt-8 px-8 py-3.5 rounded-full bg-white text-[#0B0014] font-semibold text-sm transition-all"
+              className="btn-hero inline-flex items-center gap-2 mt-8 px-8 py-3.5 bg-white text-[#0B0014] font-semibold text-sm"
             >
               View Open Roles
               <ArrowRight size={16} />
@@ -202,7 +215,7 @@ export default function CareersPage() {
 
       {/* Footer */}
       <footer className="border-t border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-wsc-text-secondary/60">
             &copy; 2026 We Scale Creators. All rights reserved.
           </p>

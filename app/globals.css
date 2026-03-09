@@ -39,42 +39,66 @@ body {
   animation: gradientShift 15s ease infinite;
 }
 
-/* Headline gradient text: purple to gold */
+/* Headline gradient text: purple spectrum */
 .headline-gradient {
-  background: linear-gradient(90deg, #A78BFA 0%, #D8B4FE 30%, #E2C088 60%, #C9A44E 100%);
+  background: linear-gradient(90deg, #A78BFA 0%, #D8B4FE 40%, #C084FC 70%, #7C3AED 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glass card */
+/* Glass card — premium soft feel */
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(167, 139, 250, 0.25);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Role card — pill-style variant */
+.role-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 28px 32px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.role-card:hover {
+  background: rgba(124, 58, 237, 0.06);
+  border-color: rgba(167, 139, 250, 0.3);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1), 0 0 0 1px rgba(167, 139, 250, 0.1);
+  transform: translateY(-3px);
 }
 
 /* CTA gradient section */
 .cta-gradient {
   background: linear-gradient(135deg, #7C3AED 0%, #DB2777 50%, #D946EF 100%);
+  border-radius: 24px;
 }
 
 /* Hiring badge */
 .hiring-badge {
   background: rgba(124, 58, 237, 0.2);
   border: 1px solid rgba(124, 58, 237, 0.4);
+  border-radius: 9999px;
 }
 
 /* Hero CTA button glow */
 .btn-hero {
-  transition: all 0.3s ease;
+  border-radius: 9999px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-hero:hover {
-  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.35), 0 0 60px rgba(124, 58, 237, 0.1);
+  transform: translateY(-1px);
 }
 
 /* Nav glass */
@@ -82,6 +106,37 @@ body {
   background: rgba(11, 0, 20, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+/* Stat card */
+.stat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Section divider — subtle gradient line */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(124, 58, 237, 0.2) 50%, transparent 100%);
+}
+
+/* Department badge pill */
+.dept-badge {
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 9999px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #C084FC;
+  letter-spacing: 0.025em;
 }
 
 /* Subtle fade-in */
