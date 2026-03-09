@@ -2,18 +2,94 @@
 
 @theme inline {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-wsc-purple: #7c3aed;
-  --color-wsc-purple-light: #a78bfa;
-  --color-wsc-magenta: #d946ef;
-  --color-wsc-bg: #0a0a0a;
-  --color-wsc-card: #141414;
-  --color-wsc-card-hover: #1a1a1a;
-  --color-wsc-border: #262626;
-  --color-wsc-text: #e5e5e5;
-  --color-wsc-text-secondary: #a3a3a3;
+  --color-wsc-purple: #7C3AED;
+  --color-wsc-purple-light: #A78BFA;
+  --color-wsc-purple-deep: #4C1D95;
+  --color-wsc-purple-dark: #2D1854;
+  --color-wsc-magenta: #D946EF;
+  --color-wsc-pink: #DB2777;
+  --color-wsc-bg: #0B0014;
+  --color-wsc-text: #FFFFFF;
+  --color-wsc-text-secondary: #A1A1AA;
+  --color-wsc-green: #22C55E;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.3) transparent;
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #e5e5e5;
+  background-color: #0B0014;
+  color: #FFFFFF;
+}
+
+/* Animated hero gradient */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(-45deg, #0B0014, #2D1854, #7C3AED, #DB2777, #4C1D95, #1E1044);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Headline gradient text: purple to gold */
+.headline-gradient {
+  background: linear-gradient(90deg, #A78BFA 0%, #D8B4FE 30%, #E2C088 60%, #C9A44E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* CTA gradient section */
+.cta-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 50%, #D946EF 100%);
+}
+
+/* Hiring badge */
+.hiring-badge {
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+
+/* Hero CTA button glow */
+.btn-hero {
+  transition: all 0.3s ease;
+}
+.btn-hero:hover {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+/* Nav glass */
+.nav-glass {
+  background: rgba(11, 0, 20, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Subtle fade-in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
 }

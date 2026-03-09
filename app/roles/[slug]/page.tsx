@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Briefcase, MapPin, Building2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, MapPin, Building2 } from "lucide-react";
 import { jobs, getJobBySlug } from "@/data/jobs";
 import { notFound } from "next/navigation";
 
@@ -33,9 +33,9 @@ export default async function RolePage({
   if (!job) notFound();
 
   return (
-    <div className="min-h-screen bg-wsc-bg text-wsc-text">
+    <div className="min-h-screen bg-wsc-bg">
       {/* Header */}
-      <header className="border-b border-wsc-border">
+      <header className="nav-glass fixed top-0 left-0 right-0 z-50 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <Image
@@ -57,7 +57,7 @@ export default async function RolePage({
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 py-16">
+      <main className="max-w-3xl mx-auto px-6 pt-28 pb-16">
         {/* Back link */}
         <Link
           href="/#roles"
@@ -90,7 +90,7 @@ export default async function RolePage({
 
         {/* Description */}
         <div className="mt-10">
-          <p className="text-wsc-text leading-relaxed">{job.description}</p>
+          <p className="text-wsc-text-secondary leading-relaxed">{job.description}</p>
         </div>
 
         {/* What You'll Do */}
@@ -128,18 +128,19 @@ export default async function RolePage({
         </div>
 
         {/* Apply CTA */}
-        <div className="mt-16 rounded-xl border border-wsc-border bg-wsc-card p-8 text-center">
+        <div className="cta-gradient mt-16 rounded-2xl p-8 text-center">
           <h3 className="text-xl font-semibold text-white">
             Interested in this role?
           </h3>
-          <p className="mt-2 text-sm text-wsc-text-secondary">
+          <p className="mt-2 text-sm text-white/80">
             Send your resume and portfolio to get started.
           </p>
           <a
             href="mailto:careers@wescalecreators.com"
-            className="inline-flex items-center gap-2 mt-6 px-8 py-3.5 rounded-lg bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors"
+            className="btn-hero inline-flex items-center gap-2 mt-6 px-8 py-3.5 rounded-full bg-white text-[#0B0014] font-semibold text-sm transition-all"
           >
             Apply Now
+            <ArrowRight size={16} />
           </a>
         </div>
 
@@ -156,16 +157,16 @@ export default async function RolePage({
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-wsc-border mt-16">
+      <footer className="border-t border-white/10 mt-16">
         <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-wsc-text-secondary/60">
             &copy; 2026 We Scale Creators. All rights reserved.
           </p>
           <a
             href="https://wescalecreators.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-neutral-500 hover:text-white transition-colors"
+            className="text-sm text-wsc-text-secondary/60 hover:text-white transition-colors"
           >
             wescalecreators.com
           </a>
