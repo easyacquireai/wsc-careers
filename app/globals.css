@@ -8,10 +8,15 @@
   --color-wsc-purple-dark: #2D1854;
   --color-wsc-magenta: #D946EF;
   --color-wsc-pink: #DB2777;
-  --color-wsc-bg: #0B0014;
+  --color-wsc-bg: #0F0A1A;
   --color-wsc-text: #FFFFFF;
-  --color-wsc-text-secondary: #A1A1AA;
+  --color-wsc-text-secondary: #B4B4BC;
   --color-wsc-green: #22C55E;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
 
 * {
@@ -20,11 +25,12 @@
 }
 
 body {
-  background-color: #0B0014;
+  background-color: #0F0A1A;
   color: #FFFFFF;
+  line-height: 1.7;
 }
 
-/* Animated hero gradient */
+/* ===== HERO ===== */
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   25% { background-position: 50% 100%; }
@@ -33,10 +39,45 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-.hero-gradient {
-  background: linear-gradient(-45deg, #0B0014, #2D1854, #7C3AED, #DB2777, #4C1D95, #1E1044);
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #0F0A1A, #2D1854, #7C3AED, #DB2777, #4C1D95, #1E1044);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
+  z-index: 0;
+}
+
+/* Radial glow behind hero content */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.18) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hero fade-out at bottom */
+.hero-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent 0%, #0F0A1A 100%);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Headline gradient text: purple spectrum */
@@ -47,24 +88,61 @@ body {
   background-clip: text;
 }
 
-/* Glass card — premium soft feel */
-.glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+/* ===== AMBIENT GLOW EFFECTS ===== */
+.glow-section {
+  position: relative;
 }
 
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(167, 139, 250, 0.25);
-  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.08);
+.glow-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== GLASS CARDS ===== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Why WSC card hover colors — each card gets unique tint */
+.why-card-1:hover {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.1);
+  transform: translateY(-2px);
+}
+.why-card-2:hover {
+  background: rgba(217, 70, 239, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(217, 70, 239, 0.1);
+  transform: translateY(-2px);
+}
+.why-card-3:hover {
+  background: rgba(168, 139, 250, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(168, 139, 250, 0.1);
+  transform: translateY(-2px);
+}
+.why-card-4:hover {
+  background: rgba(219, 39, 119, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(219, 39, 119, 0.1);
   transform: translateY(-2px);
 }
 
-/* Role card — pill-style variant */
+/* Role card */
 .role-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 28px 32px;
@@ -72,62 +150,44 @@ body {
 }
 
 .role-card:hover {
-  background: rgba(124, 58, 237, 0.06);
+  background: rgba(124, 58, 237, 0.08);
   border-color: rgba(167, 139, 250, 0.3);
   box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1), 0 0 0 1px rgba(167, 139, 250, 0.1);
   transform: translateY(-3px);
 }
 
-/* CTA gradient section */
-.cta-gradient {
-  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 50%, #D946EF 100%);
-  border-radius: 24px;
+/* Stat card */
+.stat-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hiring badge */
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* ===== CTA SECTION — FULL BLEED ===== */
+.cta-full-bleed {
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 50%, #D946EF 100%);
+}
+
+/* CTA transition fade-in from page bg */
+.cta-fade-in {
+  height: 160px;
+  background: linear-gradient(to bottom, #0F0A1A 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ===== BADGES ===== */
 .hiring-badge {
   background: rgba(124, 58, 237, 0.2);
   border: 1px solid rgba(124, 58, 237, 0.4);
   border-radius: 9999px;
 }
 
-/* Hero CTA button glow */
-.btn-hero {
-  border-radius: 9999px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.btn-hero:hover {
-  box-shadow: 0 0 24px rgba(124, 58, 237, 0.35), 0 0 60px rgba(124, 58, 237, 0.1);
-  transform: translateY(-1px);
-}
-
-/* Nav glass */
-.nav-glass {
-  background: rgba(11, 0, 20, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Stat card */
-.stat-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.stat-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-/* Section divider — subtle gradient line */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(124, 58, 237, 0.2) 50%, transparent 100%);
-}
-
-/* Department badge pill */
 .dept-badge {
   background: rgba(124, 58, 237, 0.15);
   border: 1px solid rgba(124, 58, 237, 0.3);
@@ -139,7 +199,64 @@ body {
   letter-spacing: 0.025em;
 }
 
-/* Detail page sections — glass blocks with spacing */
+.info-badge {
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 9999px;
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #C084FC;
+  white-space: nowrap;
+}
+
+/* ===== BUTTONS ===== */
+.btn-hero {
+  border-radius: 9999px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-hero:hover {
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.35), 0 0 60px rgba(124, 58, 237, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn-nav-pill {
+  background: #FFFFFF;
+  color: #0B0014;
+  border-radius: 9999px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-nav-pill:hover {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ===== NAV ===== */
+.nav-glass {
+  background: rgba(15, 10, 26, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ===== SECTION TRANSITIONS ===== */
+.section-fade-top {
+  position: relative;
+}
+.section-fade-top::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, rgba(124, 58, 237, 0.03));
+  pointer-events: none;
+}
+
+/* ===== DETAIL PAGE (unchanged) ===== */
 .detail-section {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -162,17 +279,24 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Subtle fade-in */
+/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Scroll reveal — sections fade in on scroll via IntersectionObserver */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
