@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -23,6 +23,19 @@ const cardCompensation: Record<string, string> = {
 };
 
 export default function CareersPage() {
+  const [navScrolled, setNavScrolled] = useState(false);
+
+  /* Header: transparent at top, glass when scrolled past hero */
+  const handleScroll = useCallback(() => {
+    setNavScrolled(window.scrollY > 80);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // check on mount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
   /* Scroll-reveal via IntersectionObserver */
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,7 +59,13 @@ export default function CareersPage() {
   return (
     <div className="min-h-screen bg-wsc-bg">
       {/* ───── Header ───── */}
-      <header className="nav-glass fixed top-0 left-0 right-0 z-50 border-b border-white/10">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          navScrolled
+            ? "nav-glass border-b border-white/10"
+            : "bg-transparent border-b border-transparent"
+        }`}
+      >
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <Image
