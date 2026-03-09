@@ -140,20 +140,48 @@ body {
   transform: translateY(-2px);
 }
 
-/* Role card */
+/* Role card — gradient left accent border */
 .role-card {
+  position: relative;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 28px 32px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 28px 32px 28px 36px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.role-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #7C3AED, #DB2777);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.role-card:hover::before {
+  opacity: 1;
 }
 
 .role-card:hover {
-  background: rgba(124, 58, 237, 0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-color: rgba(167, 139, 250, 0.3);
-  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1), 0 0 0 1px rgba(167, 139, 250, 0.1);
-  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Role card arrow button fill on card hover */
+.role-card:hover .role-card-arrow {
+  background: #7C3AED;
+  border-color: #7C3AED;
+}
+.role-card:hover .role-card-arrow svg {
+  color: #FFFFFF;
 }
 
 /* Stat card */
@@ -188,26 +216,48 @@ body {
   border-radius: 9999px;
 }
 
+/* Department badge — magenta */
 .dept-badge {
-  background: rgba(124, 58, 237, 0.15);
-  border: 1px solid rgba(124, 58, 237, 0.3);
+  background: rgba(217, 70, 239, 0.15);
+  border: 1px solid rgba(217, 70, 239, 0.4);
   border-radius: 9999px;
   padding: 4px 14px;
   font-size: 12px;
   font-weight: 500;
-  color: #C084FC;
+  color: #D946EF;
   letter-spacing: 0.025em;
 }
 
-.info-badge {
-  background: rgba(124, 58, 237, 0.12);
-  border: 1px solid rgba(124, 58, 237, 0.25);
+/* Shared pill base */
+.badge-status,
+.badge-location,
+.badge-compensation {
   border-radius: 9999px;
   padding: 3px 12px;
   font-size: 11px;
   font-weight: 500;
-  color: #C084FC;
   white-space: nowrap;
+}
+
+/* Status pill — green */
+.badge-status {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #4ADE80;
+}
+
+/* Location pill — sky blue */
+.badge-location {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38BDF8;
+}
+
+/* Compensation pill — gold / amber */
+.badge-compensation {
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #FBBF24;
 }
 
 /* ===== BUTTONS ===== */
@@ -277,6 +327,35 @@ body {
   margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ===== OPEN ROLES HEADING ===== */
+.roles-heading-wrap {
+  position: relative;
+}
+
+/* Radial glow behind heading */
+.roles-heading-wrap::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 180px;
+  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gradient underline accent */
+.roles-heading-accent {
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin: 14px auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #7C3AED, #D946EF, #DB2777);
 }
 
 /* ===== ANIMATIONS ===== */

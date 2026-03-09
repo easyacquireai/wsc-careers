@@ -197,15 +197,19 @@ export default function CareersPage() {
           id="roles"
           className="glow-section reveal-section scroll-mt-20"
         >
-          <div className="max-w-6xl mx-auto px-6 py-28">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-white">Open Roles</h2>
-              <p className="mt-4 text-wsc-text-secondary max-w-lg mx-auto">
+          <div className="max-w-6xl mx-auto px-6 py-32">
+            {/* Section heading with glow + accent */}
+            <div className="roles-heading-wrap text-center mb-16">
+              <h2 className="relative z-10 text-3xl font-bold headline-gradient inline-block">
+                Open Roles
+              </h2>
+              <span className="roles-heading-accent" />
+              <p className="relative z-10 mt-5 text-wsc-text-secondary max-w-lg mx-auto">
                 Join our team and help scale the biggest creators in the world.
               </p>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-6">
               {jobs.map((job) => (
                 <Link
                   key={job.slug}
@@ -227,27 +231,27 @@ export default function CareersPage() {
                         {job.summary}
                       </p>
 
-                      {/* Info pills */}
+                      {/* Color-coded info pills */}
                       <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="info-badge flex items-center gap-1.5">
+                        <span className="badge-status flex items-center gap-1.5">
                           <Briefcase size={11} />
                           {job.type}
                         </span>
-                        <span className="info-badge flex items-center gap-1.5">
+                        <span className="badge-location flex items-center gap-1.5">
                           <MapPin size={11} />
                           {job.location}
                         </span>
-                        <span className="info-badge flex items-center gap-1.5">
+                        <span className="badge-compensation flex items-center gap-1.5">
                           <DollarSign size={11} />
                           {cardCompensation[job.slug] ?? job.compensation}
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 group-hover:bg-wsc-purple/20 group-hover:border-wsc-purple-light/30 transition-all duration-300 shrink-0 mt-1">
+                    <div className="role-card-arrow flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 transition-all duration-300 shrink-0 mt-1">
                       <ArrowRight
                         size={16}
-                        className="text-wsc-text-secondary group-hover:text-white transition-colors duration-300"
+                        className="text-wsc-text-secondary transition-colors duration-300"
                       />
                     </div>
                   </div>
