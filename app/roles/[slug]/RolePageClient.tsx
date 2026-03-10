@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Briefcase, MapPin, DollarSign, X } from "lucide-react";
-import type { Job } from "@/data/jobs";
+import type { Job } from "@/lib/jobs";
 
 export default function RolePageClient({ job }: { job: Job }) {
   const [showModal, setShowModal] = useState(false);
@@ -88,65 +88,75 @@ export default function RolePageClient({ job }: { job: Job }) {
         </div>
 
         {/* Who We Are */}
-        <section className="detail-section mb-8">
-          <h2 className="detail-section-heading">Who We Are</h2>
-          <p className="text-wsc-text-secondary leading-relaxed text-[15px]">
-            {job.whoWeAre}
-          </p>
-        </section>
+        {job.whoWeAre && (
+          <section className="detail-section mb-8">
+            <h2 className="detail-section-heading">Who We Are</h2>
+            <p className="text-wsc-text-secondary leading-relaxed text-[15px]">
+              {job.whoWeAre}
+            </p>
+          </section>
+        )}
 
         {/* The Role */}
-        <section className="detail-section mb-8">
-          <h2 className="detail-section-heading">The Role</h2>
-          <p className="text-wsc-text-secondary leading-relaxed text-[15px]">
-            {job.theRole}
-          </p>
-        </section>
+        {job.theRole && (
+          <section className="detail-section mb-8">
+            <h2 className="detail-section-heading">The Role</h2>
+            <p className="text-wsc-text-secondary leading-relaxed text-[15px]">
+              {job.theRole}
+            </p>
+          </section>
+        )}
 
         {/* What You Will Do / Own */}
-        <section className="detail-section mb-8">
-          <h2 className="detail-section-heading">{job.whatYoullDoHeading}</h2>
-          <ul className="space-y-4">
-            {job.whatYoullDo.map((item, i) => (
-              <li key={i} className="flex gap-3.5 text-[15px] leading-relaxed">
-                <span className="text-wsc-purple-light mt-1 shrink-0 text-lg">
-                  &bull;
-                </span>
-                <span className="text-wsc-text-secondary">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {job.whatYoullDo.length > 0 && (
+          <section className="detail-section mb-8">
+            <h2 className="detail-section-heading">{job.whatYoullDoHeading}</h2>
+            <ul className="space-y-4">
+              {job.whatYoullDo.map((item, i) => (
+                <li key={i} className="flex gap-3.5 text-[15px] leading-relaxed">
+                  <span className="text-wsc-purple-light mt-1 shrink-0 text-lg">
+                    &bull;
+                  </span>
+                  <span className="text-wsc-text-secondary">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* Requirements */}
-        <section className="detail-section mb-8">
-          <h2 className="detail-section-heading">Requirements</h2>
-          <ul className="space-y-4">
-            {job.requirements.map((item, i) => (
-              <li key={i} className="flex gap-3.5 text-[15px] leading-relaxed">
-                <span className="text-wsc-purple-light mt-1 shrink-0 text-lg">
-                  &bull;
-                </span>
-                <span className="text-wsc-text-secondary">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {job.requirements.length > 0 && (
+          <section className="detail-section mb-8">
+            <h2 className="detail-section-heading">Requirements</h2>
+            <ul className="space-y-4">
+              {job.requirements.map((item, i) => (
+                <li key={i} className="flex gap-3.5 text-[15px] leading-relaxed">
+                  <span className="text-wsc-purple-light mt-1 shrink-0 text-lg">
+                    &bull;
+                  </span>
+                  <span className="text-wsc-text-secondary">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* Compensation and Benefits */}
-        <section className="detail-section mb-8">
-          <h2 className="detail-section-heading">Compensation and Benefits</h2>
-          <ul className="space-y-4">
-            {job.compensationAndBenefits.map((item, i) => (
-              <li key={i} className="flex gap-3.5 text-[15px] leading-relaxed">
-                <span className="text-wsc-purple-light mt-1 shrink-0 text-lg">
-                  &bull;
-                </span>
-                <span className="text-wsc-text-secondary">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {job.compensationAndBenefits.length > 0 && (
+          <section className="detail-section mb-8">
+            <h2 className="detail-section-heading">Compensation and Benefits</h2>
+            <ul className="space-y-4">
+              {job.compensationAndBenefits.map((item, i) => (
+                <li key={i} className="flex gap-3.5 text-[15px] leading-relaxed">
+                  <span className="text-wsc-purple-light mt-1 shrink-0 text-lg">
+                    &bull;
+                  </span>
+                  <span className="text-wsc-text-secondary">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* How to Apply */}
         <section className="detail-section mb-8">

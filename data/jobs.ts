@@ -1,3 +1,8 @@
+/**
+ * DEPRECATED — jobs are now fetched from Supabase via lib/jobs.ts.
+ * This file is kept for reference only. Do not import from it.
+ */
+
 export interface Job {
   slug: string;
   title: string;

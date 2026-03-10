@@ -1,9 +1,15 @@
-import { jobs, getJobBySlug } from "@/data/jobs";
 import { notFound } from "next/navigation";
+import {
+  getPublishedJobBySlug,
+  getPublishedSlugs,
+} from "@/lib/jobs";
 import RolePageClient from "./RolePageClient";
 
-export function generateStaticParams() {
-  return jobs.map((job) => ({ slug: job.slug }));
+export const revalidate = 60; // ISR: refresh job data every 60 seconds
+
+export async function generateStaticParams() {
+  const slugs = await getPublishedSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -12,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getPublishedJobBySlug(slug);
   if (!job) return { title: "Role Not Found" };
   return {
     title: `${job.title} | We Scale Creators`,
@@ -26,7 +32,7 @@ export default async function RolePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getPublishedJobBySlug(slug);
 
   if (!job) notFound();
 
