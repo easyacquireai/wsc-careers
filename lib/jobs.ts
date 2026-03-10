@@ -63,19 +63,41 @@ interface DbJob {
 
 /* ===== Helpers ===== */
 
-function isJobMetadata(val: unknown): val is JobMetadata {
-  return (
-    typeof val === "object" &&
-    val !== null &&
-    "version" in val &&
-    (val as JobMetadata).version === 2
-  );
+function parseJobMetadata(val: unknown): JobMetadata | null {
+  let obj = val;
+  if (typeof obj === "string") {
+    try { obj = JSON.parse(obj); } catch { return null; }
+  }
+  if (
+    typeof obj === "object" &&
+    obj !== null &&
+    "version" in obj &&
+    (obj as JobMetadata).version === 2
+  ) {
+    return obj as JobMetadata;
+  }
+  return null;
+}
+
+/** Safely parse a JSONB field that may come back as a JSON string */
+function parseJsonbArray(val: unknown): JobListItem[] {
+  if (Array.isArray(val)) return val;
+  if (typeof val === "string") {
+    try {
+      const parsed = JSON.parse(val);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {
+      // not valid JSON
+    }
+  }
+  return [];
 }
 
 /** Convert {bold, text} list items to "Bold. Text" strings */
-function listItemsToStrings(items: JobListItem[] | null | undefined): string[] {
-  if (!items || !Array.isArray(items)) return [];
-  return items.map((item) => {
+function listItemsToStrings(items: unknown): string[] {
+  const arr = parseJsonbArray(items);
+  if (arr.length === 0) return [];
+  return arr.map((item) => {
     const bold = item.bold?.trim() ?? "";
     const text = item.text?.trim() ?? "";
     if (bold && text) return `${bold} ${text}`;
@@ -95,9 +117,7 @@ function deriveWhatYoullDoHeading(title: string): string {
 /* ===== Mapping ===== */
 
 function mapDbJobToJob(row: DbJob): Job {
-  const metadata = isJobMetadata(row.application_questions)
-    ? row.application_questions
-    : null;
+  const metadata = parseJobMetadata(row.application_questions);
 
   return {
     slug: row.slug,
