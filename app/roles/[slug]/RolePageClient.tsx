@@ -87,15 +87,29 @@ export default function RolePageClient({ job }: { job: Job }) {
           </div>
         </div>
 
-        {/* Who We Are */}
-        {job.whoWeAre && (
-          <section className="detail-section mb-8">
-            <h2 className="detail-section-heading">Who We Are</h2>
-            <p className="text-wsc-text-secondary leading-relaxed text-[15px]">
-              {job.whoWeAre}
+        {/* Who We Are — hardcoded company blurb, identical for every role */}
+        <section className="detail-section mb-8">
+          <h2 className="detail-section-heading">Who We Are</h2>
+          <div className="space-y-4 text-wsc-text-secondary leading-relaxed text-[15px]">
+            <p>
+              We Scale Creators is a performance marketing agency that partners
+              with top influencers and info-product creators to build, launch,
+              and scale high-performing offers.
             </p>
-          </section>
-        )}
+            <p>
+              We operate on a profit-share model. We front all capital and ad
+              spend, build funnels, run paid traffic, and scale aggressively.
+              Our partners pay nothing upfront. We only win when they win.
+            </p>
+            <p>
+              Our portfolio includes creators like Cheryl Porter (38M+
+              followers) alongside established info-product businesses across
+              fitness, finance, career coaching, health, and business education.
+              We have generated over $90M in revenue for our partners and
+              currently manage multiple seven-figure monthly offers.
+            </p>
+          </div>
+        </section>
 
         {/* The Role */}
         {job.theRole && (
