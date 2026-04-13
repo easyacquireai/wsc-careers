@@ -25,59 +25,25 @@ interface JobListItem {
   text: string;
 }
 
-/** JobMetadata v2 stored in application_questions column */
-interface JobMetadata {
-  version: 2;
-  role_description: string;
-  compensation_base: string;
-  compensation_structure: string;
-  benefits: JobListItem[];
-  application_config: {
-    requires_resume: boolean;
-    requires_portfolio: boolean;
-    requires_loom: boolean;
-    requires_test_project: boolean;
-    loom_questions: string[];
-    test_project_description: string;
-    email_subject_format: string;
-    application_emails: string;
-  };
-}
-
-/** Raw row shape from the Supabase jobs table */
+/** Raw row shape from the Supabase hiring_jobs table (Omnia) */
 interface DbJob {
   id: string;
   title: string;
   slug: string;
   status: string;
-  department: string | null;
   location: string;
-  job_type: string;
-  compensation: string | null;
+  employment_type: string;
+  compensation_base: string | null;
+  compensation_structure: string | null;
   short_description: string | null;
+  who_we_are: string | null;
   what_youll_do: JobListItem[] | null;
   requirements: JobListItem[] | null;
   nice_to_have: JobListItem[] | null;
-  application_questions: JobMetadata | unknown[] | null;
+  benefits: JobListItem[] | null;
 }
 
 /* ===== Helpers ===== */
-
-function parseJobMetadata(val: unknown): JobMetadata | null {
-  let obj = val;
-  if (typeof obj === "string") {
-    try { obj = JSON.parse(obj); } catch { return null; }
-  }
-  if (
-    typeof obj === "object" &&
-    obj !== null &&
-    "version" in obj &&
-    (obj as JobMetadata).version === 2
-  ) {
-    return obj as JobMetadata;
-  }
-  return null;
-}
 
 /** Safely parse a JSONB field that may come back as a JSON string */
 function parseJsonbArray(val: unknown): JobListItem[] {
@@ -117,36 +83,38 @@ function deriveWhatYoullDoHeading(title: string): string {
 /* ===== Mapping ===== */
 
 function mapDbJobToJob(row: DbJob): Job {
-  const metadata = parseJobMetadata(row.application_questions);
+  const compensation = [row.compensation_base, row.compensation_structure]
+    .filter(Boolean)
+    .join(" + ");
 
   return {
     slug: row.slug,
     title: row.title,
-    type: row.job_type || "Full-Time Contractor",
+    type: row.employment_type || "Full-Time Contractor",
     location: row.location || "Remote",
-    department: row.department || "General",
-    compensation: row.compensation || "",
+    department: "General",
+    compensation,
     summary: row.short_description || "",
-    whoWeAre: row.short_description || "",
-    theRole: metadata?.role_description || "",
+    whoWeAre: row.who_we_are || row.short_description || "",
+    theRole: row.short_description || "",
     whatYoullDoHeading: deriveWhatYoullDoHeading(row.title),
     whatYoullDo: listItemsToStrings(row.what_youll_do),
     requirements: listItemsToStrings(row.requirements),
-    compensationAndBenefits: listItemsToStrings(metadata?.benefits),
+    compensationAndBenefits: listItemsToStrings(row.benefits),
   };
 }
 
 /* ===== Queries ===== */
 
 const JOB_COLUMNS =
-  "id,title,slug,status,department,location,job_type,compensation,short_description,what_youll_do,requirements,nice_to_have,application_questions";
+  "id,title,slug,status,location,employment_type,compensation_base,compensation_structure,short_description,who_we_are,what_youll_do,requirements,nice_to_have,benefits";
 
-/** Fetch all published jobs (for the homepage) */
+/** Fetch all live jobs (for the homepage) */
 export async function getPublishedJobs(): Promise<Job[]> {
   const { data, error } = await supabase
-    .from("jobs")
+    .from("hiring_jobs")
     .select(JOB_COLUMNS)
-    .eq("status", "published")
+    .eq("status", "live")
     .order("created_at", { ascending: true });
 
   if (error) {
@@ -157,15 +125,15 @@ export async function getPublishedJobs(): Promise<Job[]> {
   return (data as DbJob[]).map(mapDbJobToJob);
 }
 
-/** Fetch a single published job by slug (for role detail pages) */
+/** Fetch a single live job by slug (for role detail pages) */
 export async function getPublishedJobBySlug(
   slug: string
 ): Promise<Job | null> {
   const { data, error } = await supabase
-    .from("jobs")
+    .from("hiring_jobs")
     .select(JOB_COLUMNS)
     .eq("slug", slug)
-    .eq("status", "published")
+    .eq("status", "live")
     .single();
 
   if (error) {
@@ -177,12 +145,12 @@ export async function getPublishedJobBySlug(
   return mapDbJobToJob(data as DbJob);
 }
 
-/** Fetch all published slugs (for generateStaticParams) */
+/** Fetch all live slugs (for generateStaticParams) */
 export async function getPublishedSlugs(): Promise<string[]> {
   const { data, error } = await supabase
-    .from("jobs")
+    .from("hiring_jobs")
     .select("slug")
-    .eq("status", "published");
+    .eq("status", "live");
 
   if (error) {
     console.error("Supabase getPublishedSlugs error:", error.message);
